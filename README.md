@@ -2,6 +2,8 @@
 
 From the directory's terminal run "npm install"
 
+Run nodemon index.js to start your project
+
 Open http://localhost:2000/ to view the project
 
 create a file called .env in our root directory
