@@ -17,3 +17,7 @@ EMAIL_ID=your email id
 PASSWORD=your password                                                                 
 
 (note: from email and password and replace the text with your email and password, Do not use inverted commas, you dont need to edit MONGO_URI)
+
+open the following link to give nodemailer access to send emails
+
+https://myaccount.google.com/lesssecureapps?pli=1&rapt=AEjHL4PAUSnddXr_vKswb442sxSbBz-1d1nSCH-9XsiSGemBEOW6sc-dTH_RM5iyPZoyMDBW__sQFMRQvAW9yxBsZOArYPZ8hQ
