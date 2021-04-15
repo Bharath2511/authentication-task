@@ -3,10 +3,13 @@ const express = require('express');
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
+const bcrypt = require('bcrypt');
 
 
 const User = require("./models/user");
-
+const emailCredentials = require('./utilities/emailconfig');
+const {email,password} = emailCredentials;
+let newUser;
 
 const app = express();
 
@@ -43,9 +46,6 @@ app.get('/register',async(request,response)=> {
     response.render("register");
 })
 
-app.listen(2000,()=> {
-    console.log("server running on localhost 2000");
-})
 
 app.post('/users/register',async(request,response) => {
     try {
@@ -55,9 +55,32 @@ app.post('/users/register',async(request,response) => {
             console.log("user already exists");
         }
         else {
-            const newUser = {firstName,lastName,email,mobileNumber};
-            const result = await User.create(newUser);    
-            response.redirect('/login');    
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                  user: email,
+                  pass: password,
+                }
+              });
+              
+              const mailOptions = {
+                from: 'bharathchandra630@gmail.com',
+                to: email,
+                subject: 'Sending Email using Node.js',
+                text: `Hi Smartherd, thank you for your nice Node.js tutorials.
+                        I will donate 50$ for this course. Please send me payment options.`
+                // html: '<h1>Hi Smartherd</h1><p>Your Messsage</p>'        
+              };
+              
+              transporter.sendMail(mailOptions,async (error, info) => {
+                if (error) {
+                  console.log(error);
+                } else {
+                  console.log('Email sent: ' + info.response);
+                   newUser = await {firstName,lastName,email,mobileNumber};
+                  response.redirect('/password');
+                }
+              });
         }
     }
     catch(e) {
@@ -65,10 +88,46 @@ app.post('/users/register',async(request,response) => {
     }
 })
 
+app.get('/password',async(request,response)=>{
+    response.render("password")
+})
+
+app.post('/users/password',async(request,response)=>{
+    try {
+        const {password} = request.body;
+        const hashedPassword = await bcrypt.hash(password,10);
+        newUser["password"] = hashedPassword;
+        const user = await User.create(newUser);
+        response.redirect("/login")
+    }
+    catch(e) {
+        console.log(e.message);
+    }
+})
+
+
 app.get('/login',async(request,response)=> {
     response.render('login')
 })
 
-app.post('/users/login',(request,response)=>{
-    console.log(request.body);
+app.post('/users/login',async (request,response)=>{
+    const {email,password} = request.body
+    const user = await User.findOne({email});
+    if(user){
+        const isPasswordValid = bcrypt.compare(password,user.password);
+        if(isPasswordValid){
+            response.redirect('/')
+        }
+        else{
+            console.log("Password Incorrect")
+        }
+    }
+    else {
+        console.log("Invalid User")
+    }
 })
+
+app.listen(2000,()=> {
+    console.log("server running on localhost 2000");
+})
+
