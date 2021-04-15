@@ -212,21 +212,26 @@ app.post('/users/forgotpassword-passcode',async(request,response)=>{
 // reset password api
 app.post('/users/reset-password',async(request,response)=>{
     try {
-        const {email,password} = request.body
+        const {email,password,confirmPassword} = request.body
         const user = await User.findOne({email})
         if(user) {
-            const {id,firstName,lastName,email,mobileNumber} = user
-            const newPassword = await bcrypt.hash(password,10)
-            const updatedUser = {
-                firstName,
-                lastName,
-                email,
-                mobileNumber,
-                newPassword
+            if(password === confirmPassword) {
+                const {id,firstName,lastName,email,mobileNumber} = user
+                const newPassword = await bcrypt.hash(password,10)
+                const updatedUser = {
+                    firstName,
+                    lastName,
+                    email,
+                    mobileNumber,
+                    newPassword
+                }
+                const updateUser = await User.findByIdAndUpdate(id,updatedUser);
+                queryEmail = await email
+                response.redirect('/dashboard')
             }
-            const updateUser = await User.findByIdAndUpdate(id,updatedUser);
-            queryEmail = await email
-            response.redirect('/dashboard')
+            else {
+                console.log("enter valid password")
+            }
             
         }
     }
