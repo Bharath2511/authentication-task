@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div class="register-container">
+    <div class="homepage-container">
         <nav class="navbar navbar-expand-lg navbar-light nav-container">
             <a class="navbar-brand" href="/">
                 <p class="text-white mt-auto mb-auto">User Realm</p>
@@ -18,30 +18,17 @@
             <button class="navbar-toggler bg-light" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <!-- <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav ml-auto">
-                    <a><button class="p-2 btn btn-warning text-white nav-link" id="deleteUser" href="#">Sign Up</button></a>
+                    <a><button class="p-2 btn btn-warning text-white nav-link" id="deleteUser" href="#">Delete User</button></a>
                 </div>
-            </div>
+            </div> -->
         </nav>
-        <div id="signupSection" class="signup-section container-fluid">
-            <div class="form-container">
-                <form action="/users/login" method="POST" id="signupForm" class="signup-form p-5">
-
-                    <div class="mb-3">
-                        <label for="email" class="form-label" >Email</label>
-                        <input id="email" class="form-control w-100" name="email" type="text" />
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">password</label>
-                        <input id="password" class="form-control w-100" name="password" type="text" />
-                    </div>
-                    <div class="mb-3">
-                        <a class="forgot-password">Forgot Password ?</a>
-                    </div>
-                    <div>
-                        <button class="btn btn-outline-dark">Submit</button>
-                    </div>
-                </form>
-            </div>
+        <div class="homepage">
+           <p class="heading">Welcome to User Realm.</p>
+           <div class="buttons">
+               <a href="/register"><button class="m-1 btn btn-primary">Sign Up</button></a>
+               <a href="/login"><button class="m-1 btn btn-success"> Login</button></a>
+           </div>
         </div>
+    </div>

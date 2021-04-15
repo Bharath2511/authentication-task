@@ -1,11 +1,16 @@
+const { request, response } = require('express');
 const express = require('express');
 const mongoose = require("mongoose");
+const bodyParser = require('body-parser');
+const nodemailer = require('nodemailer');
+
 
 const User = require("./models/user");
 
 
 const app = express();
-app.use(express.json());
+
+app.use(bodyParser.urlencoded({extended:true}));
 
 app.use(express.static(__dirname + '/public'));
 
@@ -31,7 +36,11 @@ mongoose.connect(url,connectionParams)
 
 
 app.get('/',async(request,response) => {
-    response.render('register')
+    response.render("index")
+})
+
+app.get('/register',async(request,response)=> {
+    response.render("register");
 })
 
 app.listen(2000,()=> {
@@ -39,7 +48,27 @@ app.listen(2000,()=> {
 })
 
 app.post('/users/register',async(request,response) => {
-    const {firstName,lastName,email,mobileNumber} = request.body;
-    
+    try {
+        const {firstName,lastName,email,mobileNumber} = request.body;
+        const user = await User.findOne({email});
+        if(user) {
+            console.log("user already exists");
+        }
+        else {
+            const newUser = {firstName,lastName,email,mobileNumber};
+            const result = await User.create(newUser);    
+            response.redirect('/login');    
+        }
+    }
+    catch(e) {
+        console.log(e.message);
+    }
+})
 
+app.get('/login',async(request,response)=> {
+    response.render('login')
+})
+
+app.post('/users/login',(request,response)=>{
+    console.log(request.body);
 })

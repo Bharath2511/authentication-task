@@ -10,16 +10,37 @@
     min-height: 100vh;
 }
 
+.homepage-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.homepage {
+    flex-grow: 1;
+    background-image: url('https://wallpaperaccess.com/full/1673318.jpg');
+    background-size:cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.heading {
+    color: #ffffff;
+    font-size: 40px;
+    font-weight: bold;
+}
 .nav-container {
-    background-color: #f8ceec;
-    background-image: linear-gradient(315deg, #f8ceec 0%, #a88beb 74%);
+    background-color: #0cbaba;
+    background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
 }
 
 .signup-section {
     flex-grow: 1;
-    background-color: #f8ceec;
-    background-image: linear-gradient(315deg, #f8ceec 0%, #a88beb 74%);
-    display: flex;
+    background-color: #6b0f1a;
+    background-image: linear-gradient(315deg, #6b0f1a 0%, #b91372 74%);
+        display: flex;
     flex-direction: column;
 }
 
@@ -42,72 +63,6 @@
     }
 }
 
-.create-event-section {
-    flex-grow: 1;
-    padding: 30px;
-    background-color: #f8ceec;
-    background-image: linear-gradient(315deg, #f8ceec 0%, #a88beb 74%);
-    display: flex;
-    flex-direction: column;
-}
-
-.event-form {
-    background-color: #ffffff;
-    border-radius: 10px;
-    width: 300px;
-}
-
-.event-calendar-section {
-    flex-grow: 1;
-    background-color: #f8ceec;
-    background-image: linear-gradient(315deg, #f8ceec 0%, #a88beb 74%);
-    padding: 30px;
-}
-
-.month-container {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.month-calendar {
-    display: flex;
-    flex-direction: column;
-    background-color: grey;
-    padding: 10px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-}
-
-.dayContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 50px;
-    height: 50px;
-    margin: 10px;
-    border-radius: 6px;
-    background-color: #ffffff;
-}
-
-p {
-    margin: auto;
-}
-
-.event-container {
-    padding: 10px;
-    margin: 10px;
-    background: orange;
-    border-radius: 10px;
-}
-
-.event-name {
-    color: #ffffff;
-}
-
-.greeting {
-    font-size: 25px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #E6E6FA;
-    text-align: center;
+.forgot-password {
+    color: #380036;
 }
