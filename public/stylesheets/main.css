@@ -18,7 +18,7 @@
 
 .homepage {
     flex-grow: 1;
-    background-image: url('https://wallpaperaccess.com/full/1673318.jpg');
+    background-image: url('https://wallpaperaccess.com/full/710044.jpg');
     background-size:cover;
     display: flex;
     flex-direction: column;
@@ -32,15 +32,14 @@
     font-weight: bold;
 }
 .nav-container {
-    background-color: #0cbaba;
-    background-image: linear-gradient(315deg, #0cbaba 0%, #380036 74%);
-}
+    background-color: #923cb5;
+    background-image: linear-gradient(147deg, #923cb5 0%, #000000 74%);}
 
 .signup-section {
     flex-grow: 1;
-    background-color: #6b0f1a;
-    background-image: linear-gradient(315deg, #6b0f1a 0%, #b91372 74%);
-        display: flex;
+    background-color: #e056fd;
+    background-image: linear-gradient(315deg, #e056fd 0%, #000000 74%);
+    display: flex;
     flex-direction: column;
 }
 
@@ -67,3 +66,38 @@
     color: #380036;
 }
 
+.dashboard {
+    min-height: 100vh;
+    background-color: #9921e8;
+    background-image: linear-gradient(315deg, #9921e8 0%, #5f72be 74%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-details-card {
+    border-radius: 8px;
+    background-color: #ffffff;
+    padding: 15px;
+}
+
+.image-card {
+    text-align: center;
+}
+
+.image {
+    width: 200px;
+    margin-bottom: 10px;
+}
+
+.text {
+    color:darkorchid;
+    font-weight: bold;
+}
+
+span {
+    color: orange;
+    font-weight: 700;
+    font-style: italic;
+}

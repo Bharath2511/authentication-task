@@ -1,6 +1,5 @@
 require('dotenv').config()
 
-const { request, response } = require('express');
 const express = require('express');
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
@@ -10,8 +9,13 @@ const bcrypt = require('bcrypt');
 
 const User = require("./models/user");
 let newUser;
+let code;
+let queryEmail;
 
 const app = express();
+
+mongoose.set('useFindAndModify', false);
+
 
 app.use(bodyParser.urlencoded({extended:true}));
 
@@ -36,7 +40,37 @@ mongoose.connect(url,connectionParams)
     })
 
 
+const sendEmail = (firstName,lastName,email,mobileNumber) => {
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: process.env.EMAIL_ID,
+          pass: process.env.PASSWORD,
+        }
+      });
+      
+      const mailOptions = {
+        from: process.env.EMAIL_ID,
+        to: email,
+        subject: 'Sending Email using Node.js',
+        text: `Hi ${email}, This is just to verify your email.`
+      };
+      
+      transporter.sendMail(mailOptions,async (error, info) => {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+           newUser = await {firstName,lastName,email,mobileNumber};
+        }
+      });
+}
 
+
+const codeGenerator = async () => {
+    const code =  await (Math.floor(100000 + Math.random() * 900000));
+    return code;
+}
 
 app.get('/',async(request,response) => {
     response.render("index")
@@ -55,30 +89,8 @@ app.post('/users/register',async(request,response) => {
             console.log("user already exists");
         }
         else {
-            const transporter = nodemailer.createTransport({
-                service: 'gmail',
-                auth: {
-                  user: process.env.EMAIL_ID,
-                  pass: process.env.PASSWORD,
-                }
-              });
-              
-              const mailOptions = {
-                from: 'bharathchandra630@gmail.com',
-                to: email,
-                subject: 'Sending Email using Node.js',
-                text: `Hi ${email}, This is just to verify your email.`
-              };
-              
-              transporter.sendMail(mailOptions,async (error, info) => {
-                if (error) {
-                  console.log(error);
-                } else {
-                  console.log('Email sent: ' + info.response);
-                   newUser = await {firstName,lastName,email,mobileNumber};
-                  response.redirect('/password');
-                }
-              });
+            await sendEmail(firstName,lastName,email,mobileNumber);
+            response.redirect('/password');
         }
     }
     catch(e) {
@@ -114,7 +126,8 @@ app.post('/users/login',async (request,response)=>{
     if(user){
         const isPasswordValid = bcrypt.compare(password,user.password);
         if(isPasswordValid){
-            response.redirect('/')
+            queryEmail = await user.email
+            response.redirect('/dashboard')
         }
         else{
             console.log("Password Incorrect")
@@ -123,6 +136,91 @@ app.post('/users/login',async (request,response)=>{
     else {
         console.log("Invalid User")
     }
+})
+
+app.get('/forgot-password',async(request,response)=>{
+    const {email} = request.body;
+    response.render("forgot-password-email")
+})
+
+app.post('/users/forgotpassword-email',async(request,response)=>{
+try {
+    let {email} = request.body;
+    let user = User.findOne({email});
+    if(user) {
+        code = await codeGenerator();
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+              user: process.env.EMAIL_ID,
+              pass: process.env.PASSWORD,
+            }
+          });
+          
+          const mailOptions = {
+            from: process.env.EMAIL_ID,
+            to: email,
+            subject: 'Forgot Password',
+            text: `Hi ${email}, ${code} is your one time passcode`
+          };
+          
+          transporter.sendMail(mailOptions,async (error, info) => {
+            if (error) {
+              console.log(error);
+            } else {
+              console.log('Email sent: ' + info.response);
+              response.render("forgot-password-passcode")
+            }
+          });
+    }
+}
+catch(e){
+
+}
+    
+})
+
+app.post('/users/forgotpassword-passcode',async(request,response)=>{
+    try {
+        const {passcode} = request.body;
+        if(parseInt(passcode) === code) {
+            response.render('reset-password')
+        }
+    }
+    catch(e){
+        console.log(e.message)
+    }
+
+})
+
+app.post('/users/reset-password',async(request,response)=>{
+    try {
+        const {email,password} = request.body
+        const user = await User.findOne({email})
+        if(user) {
+            const {id,firstName,lastName,email,mobileNumber} = user
+            const newPassword = await bcrypt.hash(password,10)
+            const updatedUser = {
+                firstName,
+                lastName,
+                email,
+                mobileNumber,
+                newPassword
+            }
+            const updateUser = await User.findByIdAndUpdate(id,updatedUser);
+            queryEmail = await email
+            response.redirect('/dashboard')
+            
+        }
+    }
+    catch(e) {
+        console.log(e.message)
+    }
+})
+
+app.get('/dashboard',async(request,response)=>{
+    const userDetails = await User.findOne({email:queryEmail})
+    response.render('dashboard',{user:userDetails})
 })
 
 app.listen(2000,()=> {

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous" />
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <link href="/stylesheets/main.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <div class="dashboard">
+        <div class="user-details-card">
+            <div class="image-card">
+                <img src="https://www.pngkey.com/png/full/114-1149878_setting-user-avatar-in-specific-size-without-breaking.png" class="image"/>
+            </div>
+            <p class="text">your name is  <span><%= user.firstName %></span></p>
+            <p class="text">your last name is  <span><%= user.lastName %></span></p>
+            <p class="text">your email is  <span><%= user.email %></span></p>
+            <p class="text">your mobile number is  <span><%= user.mobileNumber %></span></p>
+            <p class="text">you are there with us since  <span><%= user.createdAt.toLocaleString()%></span></p>
+        </div>
+        <a href="/" class="mt-3"><button class="p-2 btn btn-outline-light">Return to home</button></a>
+    </div>
+</body>
+
+</html>
