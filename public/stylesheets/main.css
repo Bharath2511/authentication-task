@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&family=Caveat:wght@400;700&family=Lobster&family=Monoton&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display+SC:ital,wght@0,400;0,700;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,700&family=Work+Sans:ital,wght@0,400;0,700;1,700&display=swap');
+
+* {
+    font-family: "Roboto";
+}
+
+.register-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.nav-container {
+    background-color: #f8ceec;
+    background-image: linear-gradient(315deg, #f8ceec 0%, #a88beb 74%);
+}
+
+.signup-section {
+    flex-grow: 1;
+    background-color: #f8ceec;
+    background-image: linear-gradient(315deg, #f8ceec 0%, #a88beb 74%);
+    display: flex;
+    flex-direction: column;
+}
+
+.form-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup-form {
+    background-color: #ffffff;
+    border-radius: 10px;
+    width: 300px;
+}
+
+@media (min-width:768px) {
+    .signup-form {
+        width: 500px;
+    }
+}
+
+.create-event-section {
+    flex-grow: 1;
+    padding: 30px;
+    background-color: #f8ceec;
+    background-image: linear-gradient(315deg, #f8ceec 0%, #a88beb 74%);
+    display: flex;
+    flex-direction: column;
+}
+
+.event-form {
+    background-color: #ffffff;
+    border-radius: 10px;
+    width: 300px;
+}
+
+.event-calendar-section {
+    flex-grow: 1;
+    background-color: #f8ceec;
+    background-image: linear-gradient(315deg, #f8ceec 0%, #a88beb 74%);
+    padding: 30px;
+}
+
+.month-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.month-calendar {
+    display: flex;
+    flex-direction: column;
+    background-color: grey;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.dayContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+    border-radius: 6px;
+    background-color: #ffffff;
+}
+
+p {
+    margin: auto;
+}
+
+.event-container {
+    padding: 10px;
+    margin: 10px;
+    background: orange;
+    border-radius: 10px;
+}
+
+.event-name {
+    color: #ffffff;
+}
+
+.greeting {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #E6E6FA;
+    text-align: center;
+}
