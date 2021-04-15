@@ -1,29 +1,37 @@
+//for config
 require('dotenv').config()
 
+//node packages
 const express = require('express');
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 
-
+//user model
 const User = require("./models/user");
+
+//global vars
 let newUser;
 let code;
 let queryEmail;
 
+//initializing express
 const app = express();
 
+//mongoose middleware
 mongoose.set('useFindAndModify', false);
 
-
+//body-parser middleware
 app.use(bodyParser.urlencoded({extended:true}));
 
+// for accessing public images,css
 app.use(express.static(__dirname + '/public'));
 
+//setting template engine as ejs
 app.set('view engine','ejs');
 
-
+// mongo atlas uri
 const url = process.env.MONGO_URI;
 
 const connectionParams={
@@ -40,6 +48,7 @@ mongoose.connect(url,connectionParams)
     })
 
 
+ //for sending emails   
 const sendEmail = (firstName,lastName,email,mobileNumber) => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
@@ -66,21 +75,23 @@ const sendEmail = (firstName,lastName,email,mobileNumber) => {
       });
 }
 
-
+//for generating code
 const codeGenerator = async () => {
     const code =  await (Math.floor(100000 + Math.random() * 900000));
     return code;
 }
 
+//index API
 app.get('/',async(request,response) => {
     response.render("index")
 })
 
+//register form API
 app.get('/register',async(request,response)=> {
     response.render("register");
 })
 
-
+//register API
 app.post('/users/register',async(request,response) => {
     try {
         const {firstName,lastName,email,mobileNumber} = request.body;
@@ -98,10 +109,12 @@ app.post('/users/register',async(request,response) => {
     }
 })
 
+//reset password form
 app.get('/password',async(request,response)=>{
     response.render("password")
 })
 
+//reset password API
 app.post('/users/password',async(request,response)=>{
     try {
         const {password} = request.body;
@@ -115,11 +128,12 @@ app.post('/users/password',async(request,response)=>{
     }
 })
 
-
+//login form
 app.get('/login',async(request,response)=> {
     response.render('login')
 })
 
+// login API
 app.post('/users/login',async (request,response)=>{
     const {email,password} = request.body
     const user = await User.findOne({email});
@@ -138,11 +152,13 @@ app.post('/users/login',async (request,response)=>{
     }
 })
 
+//forgot password form
 app.get('/forgot-password',async(request,response)=>{
     const {email} = request.body;
     response.render("forgot-password-email")
 })
 
+//forgot password API
 app.post('/users/forgotpassword-email',async(request,response)=>{
 try {
     let {email} = request.body;
@@ -193,6 +209,7 @@ app.post('/users/forgotpassword-passcode',async(request,response)=>{
 
 })
 
+// reset password api
 app.post('/users/reset-password',async(request,response)=>{
     try {
         const {email,password} = request.body
@@ -218,12 +235,15 @@ app.post('/users/reset-password',async(request,response)=>{
     }
 })
 
+// dashboard API
 app.get('/dashboard',async(request,response)=>{
     const userDetails = await User.findOne({email:queryEmail})
     response.render('dashboard',{user:userDetails})
 })
 
-app.listen(2000,()=> {
+const port = process.env.port || 2000
+
+app.listen(port,()=> {
     console.log("server running on localhost 2000");
 })
 
