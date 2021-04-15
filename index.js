@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const { request, response } = require('express');
 const express = require('express');
 const mongoose = require("mongoose");
@@ -7,8 +9,6 @@ const bcrypt = require('bcrypt');
 
 
 const User = require("./models/user");
-const emailCredentials = require('./utilities/emailconfig');
-const {email,password} = emailCredentials;
 let newUser;
 
 const app = express();
@@ -20,7 +20,7 @@ app.use(express.static(__dirname + '/public'));
 app.set('view engine','ejs');
 
 
-const url = `mongodb+srv://bharath:bharath@cluster0.1tpbq.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+const url = process.env.MONGO_URI;
 
 const connectionParams={
     useNewUrlParser: true,
@@ -58,8 +58,8 @@ app.post('/users/register',async(request,response) => {
             const transporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
-                  user: email,
-                  pass: password,
+                  user: process.env.EMAIL_ID,
+                  pass: process.env.PASSWORD,
                 }
               });
               
@@ -67,9 +67,7 @@ app.post('/users/register',async(request,response) => {
                 from: 'bharathchandra630@gmail.com',
                 to: email,
                 subject: 'Sending Email using Node.js',
-                text: `Hi Smartherd, thank you for your nice Node.js tutorials.
-                        I will donate 50$ for this course. Please send me payment options.`
-                // html: '<h1>Hi Smartherd</h1><p>Your Messsage</p>'        
+                text: `Hi ${email}, This is just to verify your email.`
               };
               
               transporter.sendMail(mailOptions,async (error, info) => {
