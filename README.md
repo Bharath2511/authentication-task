@@ -1,4 +1,4 @@
-# authentication-ta
+# authentication-task
 
 From the directory's terminal run "npm install"
 
