@@ -101,3 +101,42 @@ span {
     font-weight: 700;
     font-style: italic;
 }
+
+.admin-dashboard {
+    min-height: 100vh;
+    background-color: #9921e8;
+    background-image: linear-gradient(315deg, #9921e8 0%, #5f72be 74%);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.user-card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 90vw;
+}
+
+.user-card {
+    width: 23vw;
+    display: flex;
+    flex-direction: column;
+    background-color: coral;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.user-avatar {
+    width:200px;
+}
+
+.admin-heading {
+    font-weight: bold;
+}
+
+.admin-description {
+    color: #ffffff;
+    font-weight: 700;
+}
+

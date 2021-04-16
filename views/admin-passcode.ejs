@@ -15,23 +15,24 @@
             <a class="navbar-brand" href="/">
                 <p class="text-white mt-auto mb-auto">User Realm</p>
             </a>
-            <button class="navbar-toggler bg-light" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <!-- <button class="navbar-toggler bg-light" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav ml-auto">
-                    <a href="/register"><button class="p-2 btn btn btn-outline-light text-white nav-link" id="deleteUser">Back</button></a>
+                    <a href="/register"><button class="p-2 btn btn btn-outline-light text-white nav-link" id="deleteUser">Sign Up</button></a>
                 </div>
-            </div>
+            </div> -->
         </nav>
         <div id="signupSection" class="signup-section container-fluid">
             <div class="form-container">
-                <form action="/users/password" method="POST" id="signupForm" class="signup-form p-5">
+                <form action="/users/admin-login" method="POST" id="signupForm" class="signup-form p-5">
 
                     <div class="mb-3">
-                        <label for="password" class="form-label">password</label>
-                        <input id="password" class="form-control w-100" name="password" type="password" />
+                        <label for="passcode" class="form-label" >Enter 6 digit passcode sent to your Email</label>
+                        <input id="passcode" class="form-control w-100" name="passcode" type="text" />
                     </div>
+
                     <div>
                         <button class="btn btn-outline-dark">Submit</button>
                     </div>
