@@ -6,7 +6,7 @@ Run nodemon index.js to start your project
 
 Open http://localhost:2000/ to view the project
 
-create a file called .env in our root directory
+create a file called .env in your root directory
 
 In .env file write the following code
 
@@ -16,7 +16,7 @@ EMAIL_ID=your email id
 
 PASSWORD=your password                                                                 
 
-(note: from email and password and replace the text with your email and password, Do not use inverted commas, you dont need to edit MONGO_URI)
+(note: Replace email and password with your email and password, Do not use inverted quotations, you dont need to edit MONGO_URI)
 
 open the following link to give nodemailer access to send emails
 
